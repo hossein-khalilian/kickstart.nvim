@@ -643,6 +643,28 @@ require('lazy').setup({
       require('nvim-autopairs').setup {}
     end,
   },
+  {
+    'mg979/vim-visual-multi',
+  },
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v3.x',
+    requires = {
+      --- Uncomment these if you want to manage LSP servers from neovim
+      { 'williamboman/mason.nvim' },
+      { 'williamboman/mason-lspconfig.nvim' },
+
+      -- LSP Support
+      { 'neovim/nvim-lspconfig' },
+      -- Autocompletion
+      { 'hrsh7th/nvim-cmp' },
+      { 'hrsh7th/cmp-nvim-lsp' },
+      { 'L3MON4D3/LuaSnip' },
+    },
+  },
+  {
+    'davidhalter/jedi-vim',
+  },
 
   { -- Autoformat
     'stevearc/conform.nvim',
@@ -930,4 +952,11 @@ require('lazy').setup({
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
-vim.api.nvim_set_keymap('n', '<Leader>e', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>ee', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
+  pattern = { '*.py' },
+  command = "silent execute '%!black -q -' | %!cat",
+})
+
+vim.g.python3_host_prog = '/usr/bin/python3.10'
