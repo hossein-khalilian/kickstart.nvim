@@ -323,9 +323,6 @@ require('lazy').setup({
         end,
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
-
-      -- Useful for getting pretty icons, but requires a Nerd Font.
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
     config = function()
       -- Telescope is a fuzzy finder that comes with a lot of different things that
@@ -408,6 +405,8 @@ require('lazy').setup({
     end,
   },
 
+  -- Useful for getting pretty icons, but requires a Nerd Font.
+  { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   { -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',
     dependencies = {
@@ -647,6 +646,9 @@ require('lazy').setup({
     'mg979/vim-visual-multi',
   },
   {
+    'nvim-tree/nvim-web-devicons',
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v3.x',
     requires = {
@@ -661,6 +663,29 @@ require('lazy').setup({
       { 'hrsh7th/cmp-nvim-lsp' },
       { 'L3MON4D3/LuaSnip' },
     },
+  },
+  {
+    'romgrk/barbar.nvim',
+    dependencies = {
+      'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
+      'nvim-tree/nvim-web-devicons', -- OPTIONAL: for file icons
+    },
+
+    config = function()
+      require('barbar').setup {
+        icons = {
+          filetype = {
+            custom_colors = false,
+            enabled = false,
+          },
+        },
+      }
+    end,
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    opts = {},
+    version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
   {
     'davidhalter/jedi-vim',
@@ -953,6 +978,10 @@ require('lazy').setup({
 -- vim: ts=2 sts=2 sw=2 et
 
 vim.api.nvim_set_keymap('n', '<Leader>ee', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
+
+-- vim.api.nvim_set_keymap('n', '<A-,>', ':bnext<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-,>', '<Cmd>BufferPrevious<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<A-.>', '<Cmd>BufferNext<CR>', { noremap = true, silent = true })
 
 vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
   pattern = { '*.py' },
