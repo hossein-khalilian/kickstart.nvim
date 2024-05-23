@@ -687,9 +687,9 @@ require('lazy').setup({
     opts = {},
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
-  {
-    'davidhalter/jedi-vim',
-  },
+  -- {
+  --   'davidhalter/jedi-vim',
+  -- },
 
   { -- Autoformat
     'stevearc/conform.nvim',
